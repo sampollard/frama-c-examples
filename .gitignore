@@ -1,0 +1,7 @@
+# Compiled files
+*.o
+
+# Editor and OS
+.*.swo
+.*.swp
+.DS_Store
