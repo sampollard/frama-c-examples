@@ -20,6 +20,8 @@ typedef int i32;
  *    interpretation)
  * 3. Describe the error, or the difference between 1/sqrt(x) in floating-point
  *    versus real numbers, and write and prove this as an ACSL specification.
+ *    Note: I'm not sure to what extent ACSL + Frama-C can describe and prove
+ *    this second sentence.
  * Start by running "make fc-r"
  */
 
@@ -43,12 +45,17 @@ float rsqrt(float number)
  *   output.
  * - Add an ACSL assertion for both magic step and the typecasting
  *   to describe what happens to the underlying real-valued y
+ * Some notes:
+ * - Using -wp, you can probably only get a very coarse bound. But
+ *   how far can you get? What would you need to prove a better bound?
+ * - Can you make any progress with -eva? It should be able to make
+ *   progres with some symbolic computation. How far can this get you?
+ *   What would you need to get a better bound?
  */
 
 /*@ requires 1.0 <= number && number <= 1000.0;
   @ ensures \is_finite(\result);
  */
-
 float q_rsqrt( float number )
 {
 	long i;
@@ -57,6 +64,7 @@ float q_rsqrt( float number )
 	union { float f; i32 i; } u; // Reinterpret the bits of number as an integer
 	x2 = number * 0.5F;
 	u.f = number;
+    /* May want some line like //@ no_wp: assert */
 	u.i = 0x5f3759df - ( u.i >> 1 );         // Magic constant initial guess
 	y = u.f;                                 // Cast back to float
 	y = y * ( threehalfs - ( x2 * y * y ) ); // 1st iteration

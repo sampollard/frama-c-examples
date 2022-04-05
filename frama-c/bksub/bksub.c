@@ -1,3 +1,9 @@
+/* Assignment:
+ *   1. Make some reasonable specification that can be proven with -wp
+ *   OR
+ *   2. Write a test case using frama-c's nondeterministic input generator to
+ *      try to find situations where lu_bksb doesn't work.
+ */
 static void lu_bksb(
 		double *a,		/* LU Decomposition of original a matrix */
 		int n,			/* dim of the square matrix a */
@@ -30,7 +36,10 @@ static void lu_bksb(
 
 int main(int argc, char *argv[])
 {
-	/* LU decomposition of the matrix A = [1,2,3; 4,5,6; 7,8,9]
+	/* LU decomposition of the matrix
+      A = [1, 2, 3] = L * U
+          [4, 5, 6]
+          [7, 8, 9]
 	   L = [1, 0, 0]  U = [1,  2,  3]
 	       [4, 1, 0]      [0, -3, -6]
 	       [7, 2, 1]      [0,  0,  0]
