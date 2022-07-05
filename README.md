@@ -1,2 +1,2 @@
-# frama-c-exploration
-Various uses and applications of Frama-C
+# Frama-C Examples
+Various uses and applications of Frama-C.
