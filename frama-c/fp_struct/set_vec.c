@@ -23,10 +23,9 @@ typedef union {
   requires I_positive: 0 <= i;
   requires I_small: i+3 <= length_Vector_N(*v);
   assigns v->a[i..i+2];
-  // a and b fail, but c passes. This is very strange
-  ensures aaa: v->a[i+0] == v3->v.i;
-  //ensures bbb: v->a[i+1] == v3->v.j;
-  ensures ccc: v->a[i+2] == v3->v.k;
+  ensures set_i: v->a[i+0] == v3->v.i;
+  ensures set_j: v->a[i+1] == v3->v.j;
+  ensures set_k: v->a[i+2] == v3->v.k;
 */
 void set_3(Vector_N* v, const Vector_3* v3, const int i) {
   v->a[i+0] = v3->v.i;
